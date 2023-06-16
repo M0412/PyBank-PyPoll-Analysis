@@ -17,7 +17,8 @@ with open(pybank_csv) as csv_file:
         InitialChange = 0
         ProfitLossesChanges = []
         MonthName = []
-        HighestProfitIncrease = 0
+        HighestProfitIncrease = ["",0]
+        HighestProfitDecrease = ["", 1000000000]
         
         for row in csv_reader:
                  
@@ -30,33 +31,40 @@ with open(pybank_csv) as csv_file:
                  # Determine changes in profit/losses and add data to a list
                  MonthlyDiff = int(row[1]) - InitialChange
                  ProfitLossesChanges.append(MonthlyDiff)
-                 MonthName = [row[0]]
+                 MonthName.append(row[0]) 
                  InitialChange = int(row[1]) 
 
-                 # Determine the average of those changes
-                 MonthlyChangesAverage = sum(ProfitLossesChanges) / len(ProfitLossesChanges) 
-
-                 # Determine the greatest increase
-                 #for changes in ProfitLossesChanges:
-                         #if (changes > HighestProfitIncrease):
-                                 #HighestProfitIncrease = changes
-                                 #MonthIncrease = row[0]
-                 HighestProfitIncrease = max(ProfitLossesChanges)
-
+                 # Determine the greatest profit increase
+                 if MonthlyDiff > HighestProfitIncrease[1]:
+                         HighestProfitIncrease[0] = row[0]
+                         HighestProfitIncrease[1] = MonthlyDiff
+                
                  # Determine the greatest profit decrease
-                 HighestProfitDecrease = min(ProfitLossesChanges)
+                 if MonthlyDiff < HighestProfitDecrease[1]:
+                         HighestProfitDecrease[0] = row[0]
+                         HighestProfitDecrease[1] = MonthlyDiff
 
-                 # Variable to store results
-                 Output = (f"Financial Analysis\n"
-                           "----------------------------\n"
-                           f"Total Months: {MonthsTotal}\n"
-                           f"Total: ${ProfitLossesNetTotal}\n"
-                           f"Average Change: ${MonthlyChangesAverage:.2f}\n"
-                           f"Greatest Increase in Profits: {MonthName} ${HighestProfitIncrease}\n"
-                           f"Greatest Decrease in Profits: {MonthName} ${HighestProfitDecrease}")
+# Determine the average of the monthly changes
+ProfitLossesChanges.pop(0)
+MonthlyChangesAverage = sum(ProfitLossesChanges) / len(ProfitLossesChanges) 
+
+# Variable to store results
+Output = (f"Financial Analysis\n"
+          
+           "----------------------------\n"
+           
+           f"Total Months: {MonthsTotal}\n"
+           
+           f"Total: ${ProfitLossesNetTotal}\n"
+           
+           f"Average Change: ${MonthlyChangesAverage: .2f}\n"
+           
+           f"Greatest Increase in Profits: {HighestProfitIncrease[0]} ${HighestProfitIncrease[1]}\n"
+           
+           f"Greatest Decrease in Profits: {HighestProfitDecrease[0]} ${HighestProfitDecrease[1]}\n")
                  
-        # Print results in terminal
-        print (Output)
+# Print results in terminal
+print (Output)
 
 # Export results to the text file
 with open(pybank_export, "w") as txt_output:
