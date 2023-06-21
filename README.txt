@@ -18,6 +18,3 @@ The Python script opens and reads from a CSV file that a set of financial data. 
 	▪	The changes in “Profit/Losses” over the entire period and then the average of those changes
 	▪	The greatest increase and decrease in profits (date and amount) over the entire period 
 
-# Credits
-
-This "ProfitLossesChanges.pop(0)" part of code in PyBank was authored by Aisha Braxton-Garvin.
