@@ -3,7 +3,7 @@
 # PyPoll
 
 The Python script opens and reads from a CSV file that has a set of poll data. It then analyses the votes and  prints the following results to the terminal, and exports those results to a text file.  
-	▪	
+	
 	▪	The total number of votes cast
 	▪	A complete list of candidates who received votes
 	▪	The total number of votes each candidate won
